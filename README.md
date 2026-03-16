@@ -983,3 +983,14 @@ The `styles/globals.css` file is the central location for global CSS styles and 
 - Ensure that the imported fonts (`Geist`, `Geist Mono`) are available in your project, or provide fallback options.
 - The `@layer base` directive ensures that the base styles are applied globally and can be overridden by more specific styles.
 
+## Code Improvements Applied
+
+- Add regression tests around the highest-risk files: `components/matchmaking-criteria.tsx`, `components/discord-integration.tsx`, `components/theme-provider.tsx`.
+- Consider extracting shared utility code into a dedicated module to lower coupling.
+- Re-index and regenerate walkthroughs/diagrams after structural changes to keep documentation current.
+
+Files changed:
+- `components/matchmaking-criteria.tsx`
+- `components/discord-integration.tsx`
+- `components/theme-provider.tsx`
+- `lib/utils.ts`
