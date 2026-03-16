@@ -1,3 +1,4 @@
+```
 "use client"
 
 import type React from "react"
@@ -7,29 +8,10 @@ import { CheckCircle2, XCircle, AlertCircle, TrendingUp, Zap, Trophy } from "luc
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { useEligibilityCheck } from "@/hooks/useEligibilityCheck"
 
 export function MatchmakingCriteria() {
-  const [isChecking, setIsChecking] = useState(false)
-  const [eligibility, setEligibility] = useState<{
-    rank: number
-    latency: number
-    reputation: number
-    isEligible: boolean
-  } | null>(null)
-
-  const handleCheck = () => {
-    setIsChecking(true)
-    // Simulate eligibility check
-    setTimeout(() => {
-      setEligibility({
-        rank: 85,
-        latency: 24,
-        reputation: 98,
-        isEligible: true,
-      })
-      setIsChecking(false)
-    }, 2000)
-  }
+  const { isChecking, eligibility, handleCheck, resetEligibility } = useEligibilityCheck()
 
   return (
     <div className="mx-auto max-w-4xl space-y-8">
@@ -47,7 +29,7 @@ export function MatchmakingCriteria() {
           description="Top 20% of regional leaderboard"
           icon={<Trophy className="h-5 w-5 text-amber-400" />}
           progress={eligibility?.rank || 0}
-          status={eligibility ? (eligibility.rank >= 80 ? "pass" : "fail") : "pending"}
+          status={eligibility ? (eligibility.rank >= 80? "pass" : "fail") : "pending"}
         />
         <CriteriaCard
           title="Network Latency"
@@ -55,7 +37,7 @@ export function MatchmakingCriteria() {
           description="Consistent sub-50ms regional ping"
           icon={<Zap className="h-5 w-5 text-cyan-400" />}
           progress={eligibility ? 100 - eligibility.latency : 0}
-          status={eligibility ? (eligibility.latency <= 50 ? "pass" : "fail") : "pending"}
+          status={eligibility ? (eligibility.latency <= 50? "pass" : "fail") : "pending"}
         />
         <CriteriaCard
           title="Player Reputation"
@@ -63,7 +45,7 @@ export function MatchmakingCriteria() {
           description="Clean history and sportsmanship"
           icon={<TrendingUp className="h-5 w-5 text-emerald-400" />}
           progress={eligibility?.reputation || 0}
-          status={eligibility ? (eligibility.reputation >= 90 ? "pass" : "fail") : "pending"}
+          status={eligibility ? (eligibility.reputation >= 90? "pass" : "fail") : "pending"}
         />
       </div>
 
@@ -103,7 +85,7 @@ export function MatchmakingCriteria() {
                 </div>
                 <Button
                   variant="outline"
-                  onClick={() => setEligibility(null)}
+                  onClick={resetEligibility}
                   className="border-slate-800 bg-transparent"
                 >
                   Try Again
@@ -153,3 +135,36 @@ function CriteriaCard({
     </Card>
   )
 }
+
+// hooks/useEligibilityCheck.ts
+import { useState } from "react"
+
+export function useEligibilityCheck() {
+  const [isChecking, setIsChecking] = useState(false)
+  const [eligibility, setEligibility] = useState<{
+    rank: number
+    latency: number
+    reputation: number
+    isEligible: boolean
+  } | null>(null)
+
+  const handleCheck = () => {
+    setIsChecking(true)
+    setTimeout(() => {
+      setEligibility({
+        rank: 85,
+        latency: 24,
+        reputation: 98,
+        isEligible: true,
+      })
+      setIsChecking(false)
+    }, 2000)
+  }
+
+  const resetEligibility = () => {
+    setEligibility(null)
+  }
+
+  return { isChecking, eligibility, handleCheck, resetEligibility }
+}
+```
