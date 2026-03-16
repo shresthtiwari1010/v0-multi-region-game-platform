@@ -1,15 +1,12 @@
+```
 import { MessageCircle, ExternalLink, Users, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { fetchChannels } from "@/utils/discord"
 
 export function DiscordIntegration() {
-  const channels = [
-    { name: "Global General", members: "12.4k", active: "2.1k", description: "All-region hangout" },
-    { name: "Elite Strategists", members: "1.2k", active: "450", description: "High-rank coordination", elite: true },
-    { name: "NA-EU Scrims", members: "3.5k", active: "890", description: "Cross-Atlantic practice" },
-    { name: "Asia-Pacific Hub", members: "5.8k", active: "1.4k", description: "East meets West" },
-  ]
+  const channels = fetchChannels()
 
   return (
     <Card className="border-slate-800 bg-[#5865F2]/5 backdrop-blur-md transition-all hover:bg-[#5865F2]/10">
@@ -67,3 +64,4 @@ export function DiscordIntegration() {
     </Card>
   )
 }
+```
